@@ -14,7 +14,7 @@
   </section>
   <div class="containter is-fluid">
     <div class="notifaction is-primary">
-      <h1 class="title">Enter</h1>
+      <br>
       </div>
     <div class="columns">
       <div class="column">

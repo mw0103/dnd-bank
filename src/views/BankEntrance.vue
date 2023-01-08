@@ -43,6 +43,11 @@
                         Create Character
                     </button>
                 </div>
+                <div class="column">
+                    <button class="button is-link" data-target="modal-js-example" @click="GoToInvestments()">
+                        Investments
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -83,8 +88,9 @@ import CharacterCardVue from '@/components/CharacterCard.vue';
 import { defineComponent } from 'vue';
 import { Investment } from '@/types/Investment';
 
-let Characters: Character[] = [{  name: "Test", gold: 100, investments: [],player: {firstName:"Madison",lastName:"Wilkes",email:"this@this.com",playerID:"1"},campaignID:"3"}];  
 
+let Characters: Character[] = [{ id:1, name: "Test", gold: 100, investments: [],player: {firstName:"Madison",lastName:"Wilkes",email:"this@this.com",playerID:"1"},campaignID:"3"}];  
+let y : Character[] = new Array<Character>();
 
 export default defineComponent({
     name: "BankEntrance",
@@ -93,6 +99,7 @@ export default defineComponent({
             characters: Characters,
             gold: 0,
             name: "",
+            c : y,
         }
     },
     components: {
@@ -100,7 +107,7 @@ export default defineComponent({
     },
     methods: {
         CreateCharacter() {
-            let character = { name: this.name, gold: this.gold, investments: new Array<Investment>(),player: {firstName:"Madison",lastName:"Wilkes",email:"",playerID:"2"},campaignID:"1"};
+            let character = {id:1, name: this.name, gold: this.gold, investments: new Array<Investment>(),player: {firstName:"Madison",lastName:"Wilkes",email:"",playerID:"2"},campaignID:"1"};
             let modal = document.getElementById("modal-js-example");
             this.characters.push(character);
             modal.classList.remove("is-active");
@@ -114,6 +121,11 @@ export default defineComponent({
         CloseModal() {
             let modal = document.getElementById("modal-js-example");
             modal.classList.remove("is-active");
+        },
+        GoToInvestments() {
+            let modal = document.getElementById("modal-js-example");
+            modal.classList.remove("is-active");
+            this.$router.push({ name: 'Investments' });
         }
     },
 })

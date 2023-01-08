@@ -16,6 +16,9 @@
                 <h1 class="subtitle">{{ character.gold }}</h1>
             </div>
         </div>
+        <button class="button is-primary" @click="GoToCharacterView()">
+            View
+        </button>
     </div>
 </template>
 
@@ -27,5 +30,10 @@ export default defineComponent({
     props: {
         character: Object as () => Character,
     },
+    methods: {
+        GoToCharacterView() {
+            this.$router.push({ name: 'CharacterView', params: { characterID: this.character.id } });
+        }
+    }
 });
 </script>
