@@ -87,12 +87,17 @@ import {Character} from '@/types/Character';
 import CharacterCardVue from '@/components/CharacterCard.vue';
 import { defineComponent } from 'vue';
 import { Investment } from '@/types/Investment';
+import axios from 'axios';
 
 
-let Characters: Character[] = [{ id:1, name: "Test", gold: 100, investments: [],player: {firstName:"Madison",lastName:"Wilkes",email:"this@this.com",playerID:"1"},campaignID:"3"}];  
+
+let Characters: Character[] = [{ id:1, name: "Test", gold: 100, investments: [],playerId:1,campaignID:"3"}];  
 let y : Character[] = new Array<Character>();
 
 export default defineComponent({
+    mounted() {
+        this.GetCharacters();
+    },
     name: "BankEntrance",
     data() {
         return {
@@ -106,13 +111,28 @@ export default defineComponent({
         CharacterCard: CharacterCardVue,
     },
     methods: {
+
+        GetCharacters() {
+            axios.get('https://localhost:44319/api/character')
+            .then(response => {
+                this.characters = response.data;
+                console.log(response)});
+            },
+
         CreateCharacter() {
-            let character = {id:1, name: this.name, gold: this.gold, investments: new Array<Investment>(),player: {firstName:"Madison",lastName:"Wilkes",email:"",playerID:"2"},campaignID:"1"};
+            let character = {id:1, name: this.name, gold: this.gold, investments: new Array<Investment>(),playerId:1 ,campaignID:"1"};
             let modal = document.getElementById("modal-js-example");
             this.characters.push(character);
             modal.classList.remove("is-active");
             this.name = "";
             this.gold = 0; 
+            axios.post('https://localhost:44319/api/character/create',character)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
         },
         CallCreateScreen() {
             let modal = document.getElementById("modal-js-example");
