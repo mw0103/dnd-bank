@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import BankEntrance from "../views/BankEntrance.vue";
 import InvesmentView from "../views/InvestmentView.vue";
+import CreateAccount from "../views/CreateAccountView.vue";
 const routes = [{
         path: "/",
         name: "home",
@@ -26,6 +27,11 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "about" */ "../views/AboutView.vue"),
     },
+    {
+        path:"/createAccount",
+        name: "CreateAccount",
+        component:CreateAccount
+    }
 ];
 
 const router = createRouter({

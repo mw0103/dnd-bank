@@ -16,28 +16,44 @@
     <div class="notifaction is-primary">
       <br>
       </div>
-    <div class="columns">
-      <div class="column">
-        <button class="button is-primary" data-target="modal-js-example" @click="CallCreateScreen()">
-          Create Character</button>
-      </div>
-      <div class="column">
-        <button class="button is-link" data-target="modal-js-example" @click="CallBankEntranceScreen()">
-          Created Characters</button>
+      <form class="box">
+  <div class="field">
+    <label class="label">username</label>
+    <div class="control">
+      <input v-model="username" class="input" type="username" placeholder="e.g. theDeStROyER">
     </div>
   </div>
-  </div> 
+
+  <div class="field">
+    <label class="label">Password</label>
+    <div class="control">
+      <input v-model="password" class="input" type="password" placeholder="********">
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column">
+  <button class="button is-primary" @click="signIn(username,password)">Sign in</button>
+</div>
+<div class="column">
+  <button class="button is-primary" @click="createAccountScreen()">Create Account</button>
+</div>
+</div>
+</form>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-
+import axios from 'axios';
 
 export default defineComponent({
   data() {
     return {
       name: '',
       gold: 0,
+      username:"",
+      password:""
       
     }
   },
@@ -47,6 +63,16 @@ export default defineComponent({
     },
     CallBankEntranceScreen() {
       this.$router.push({ name: 'bank' });
+    },
+    signIn(username:string, password:string){
+      console.log(username);
+      axios.post('https://localhost:44394/api/Player/Login', {
+        username: username,
+        password: password
+      })
+    },
+    createAccountScreen(){
+      this.$router.push({ name: 'CreateAccount' });
     }
   },
 })

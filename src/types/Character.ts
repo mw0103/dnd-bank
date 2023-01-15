@@ -1,11 +1,14 @@
-import { Investment } from "./Investment";
+import { CharacterInvestment } from "./CharacterInvestment";
 
 
 export type Character ={
     id:number;
+    characterId: string;
     name: string;
     gold: number;
-    investments: Investment[];
+    silver: number;
+    copper: number;
     playerId:number;
+    investments?: CharacterInvestment[];
     campaignID: string;
 }

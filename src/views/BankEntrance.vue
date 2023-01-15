@@ -86,12 +86,12 @@
 import {Character} from '@/types/Character';
 import CharacterCardVue from '@/components/CharacterCard.vue';
 import { defineComponent } from 'vue';
-import { Investment } from '@/types/Investment';
+import { CharacterInvestment } from '@/types/CharacterInvestment';
 import axios from 'axios';
 
 
 
-let Characters: Character[] = [{ id:1, name: "Test", gold: 100, investments: [],playerId:1,campaignID:"3"}];  
+let Characters: Character[] = [];  
 let y : Character[] = new Array<Character>();
 
 export default defineComponent({
@@ -103,6 +103,8 @@ export default defineComponent({
         return {
             characters: Characters,
             gold: 0,
+            silver:0,
+            copper:0,
             name: "",
             c : y,
         }
@@ -120,7 +122,7 @@ export default defineComponent({
             },
 
         CreateCharacter() {
-            let character = {id:1, name: this.name, gold: this.gold, investments: new Array<Investment>(),playerId:1 ,campaignID:"1"};
+            let character = {id:1, name: this.name, gold: this.gold, investments: new Array<CharacterInvestment>(),playerId:1 ,campaignID:"1"};
             let modal = document.getElementById("modal-js-example");
             this.characters.push(character);
             modal.classList.remove("is-active");

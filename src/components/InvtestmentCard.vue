@@ -26,7 +26,7 @@
 <script lang="ts">
 import { defineComponent,ref } from 'vue';
 import type { PropType } from 'vue';
-import { Investment } from '@/types/Investment';
+import { Investment } from '@/types/CharacterInvestment';
 export default defineComponent({
 
     name: "InvestmentCard",
