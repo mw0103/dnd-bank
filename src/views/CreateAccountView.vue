@@ -71,6 +71,11 @@ export default defineComponent({
             }).catch((error) => {
                 console.log(error);
             })
+            this.firstName= "";
+            this.lastName= "";
+            this.email= "";
+            this.username= "";
+            this.password= "";
             this.$router.push({ name: 'bank' });
         }
     }

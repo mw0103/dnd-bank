@@ -3,11 +3,10 @@
         <div class="Hero-body">
             <div class="Container">
                 <h1 class="Title">
-                    Pick or Create a Character
+                    Pick or Create a Campaign
                 </h1>
                 <h2 class="Subtitle">
-                    This is where all your gold will be stored. You can add, remove, and transfer gold between
-                    characters.
+                    This is where all you can find all your campaigns that you've created or joined.
                 </h2>
             </div>
         </div>
@@ -25,7 +24,7 @@
                         <div class="columns">
                             <div class="column">
                                 <div v-for="character in characters" :key="character.campaignID">
-                                    <CharacterCard :character="character" />
+                                    <CampaignCard :character="character" />
                                 </div>
                             </div>
                         </div>
@@ -84,10 +83,11 @@
 
 <script lang="ts">
 import {Character} from '@/types/Character';
-import CharacterCardVue from '@/components/CharacterCard.vue';
+
 import { defineComponent } from 'vue';
 import { CharacterInvestment } from '@/types/CharacterInvestment';
 import axios from 'axios';
+import CampaignCard from '@/components/CampaignCard.vue';
 
 
 
@@ -110,7 +110,7 @@ export default defineComponent({
         }
     },
     components: {
-        CharacterCard: CharacterCardVue,
+        CampaignCard: CampaignCard,
     },
     methods: {
 
