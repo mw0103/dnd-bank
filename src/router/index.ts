@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import BankEntrance from "../views/BankEntrance.vue";
 import InvesmentView from "../views/InvestmentView.vue";
 import CreateAccount from "../views/CreateAccountView.vue";
+import { useUserStore } from "@/stores/UserStore";
 const routes = [{
         path: "/",
         name: "home",
@@ -11,12 +12,24 @@ const routes = [{
     {
         path: "/bank",
         name: "bank",
-        component: BankEntrance
+        component: BankEntrance,
+        beforeEnter: () => {
+            const userStore = useUserStore();
+            if(userStore.token == null){
+                router.push("/");
+            }
+        }
     },
     {
         path: "/investment",
         name: "Investments",
-        component: InvesmentView
+        component: InvesmentView,
+        beforeEnter: () => {
+            const userStore = useUserStore();
+            if(userStore.token == null){
+                router.push("/");
+            }
+        }
     },
     {
         path: "/about",

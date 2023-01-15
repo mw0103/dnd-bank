@@ -46,8 +46,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import axios from 'axios';
-
+import { useUserStore } from '@/stores/UserStore';
 export default defineComponent({
+  setup(){
+    const user = useUserStore();
+    return {
+      user
+    }
+  },
   data() {
     return {
       name: '',
@@ -69,6 +75,12 @@ export default defineComponent({
       axios.post('https://localhost:44394/api/Player/Login', {
         username: username,
         password: password
+      }).then((response) => {
+        console.log(response.data);
+        this.user.token = response.data;
+        this.$router.push({ name: 'bank' });
+      }).catch((error) => {
+        console.log(error);
       })
     },
     createAccountScreen(){

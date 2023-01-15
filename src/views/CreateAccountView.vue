@@ -38,6 +38,7 @@
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { useUserStore } from '@/stores/UserStore';
+import { Player } from '@/types/Player';
 
 export default defineComponent({
     name:"CreateAccount",
@@ -67,6 +68,15 @@ export default defineComponent({
                 password: this.password
             }).then((response) => {
                 console.log(response.data);
+                let player = {
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    email: this.email,
+                    role: "Player",
+                    username: this.username,
+                    password: this.password
+                } as Player;
+                this.userState.player = player;
                 this.userState.token = response.data;
             }).catch((error) => {
                 console.log(error);
