@@ -22,6 +22,7 @@
     <a href="#" v-if="user.userId == campaign.dmId" class="card-footer-item">Edit</a>
     <a href="#" v-if="user.userId == campaign.dmId" class="card-footer-item">Delete</a>
   </footer>
+    </div>
 </template>
 
 <script lang="ts">

@@ -30,7 +30,14 @@
                 <input class="input" v-model="password" type="text" placeholder="Text input">
             </div>
         </div>
+        <div class="columns">
+            <div class="column">
         <button class="button is-primary" @click="createAccount()">Create Account</button>
+            </div>
+            <div class="column">
+        <button class="button is-primary" @click="$router.push('/')">Home</button>
+    </div>
+    </div>
     </div>
 </template>
 

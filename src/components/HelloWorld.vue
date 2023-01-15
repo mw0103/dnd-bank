@@ -72,12 +72,15 @@ export default defineComponent({
     },
     signIn(username:string, password:string){
       console.log(username);
-      axios.post('https://localhost:44394/api/Player/Login', {
+      axios.post('https://localhost:44319/api/Player/Login', {
         username: username,
         password: password
       }).then((response) => {
         console.log(response.data);
-        this.user.token = response.data;
+        this.user.token = response.data.token;
+        document.cookie="token="+response.data.token;
+        this.user.player = response.data.player;
+        this.user.userId = response.data.player.id;
         this.$router.push({ name: 'bank' });
       }).catch((error) => {
         console.log(error);

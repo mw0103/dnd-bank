@@ -18,7 +18,7 @@
                     <div class="box">
                         <div class="columns">
                             <div class="column">
-                                <h1 class="title">Characters</h1>
+                                <h1 class="title">Campaigns</h1>
                             </div>
                         </div>
                         <div class="columns">
@@ -52,27 +52,27 @@
     </section>
 
     <div id="modal-js-example" class="modal">
-        <div class="modal-background" @click="CloseModal()"></div>
+        <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Create Character</p>
+                <p class="modal-card-title">Create Campaign</p>
             </header>
             <section class="modal-card-body">
                 <div class="field">
-                    <label class="label">Name</label>
+                    <label class="label">Title</label>
                     <div class="control">
                         <input class="input" type="text" placeholder="Name" v-model="name">
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">Gold</label>
+                    <label class="label">Description</label>
                     <div class="control">
-                        <input class="input" type="number" placeholder="Gold" v-model="gold">
+                        <input class="input" type="text" placeholder="Description" v-model="Description">
                     </div>
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-success" @click="CreateCharacter()">Create</button>
+                <button class="button is-success" @click="CreateCampaign()">Create</button>
                 <button class="button" @click="CloseModal()">Cancel</button>
             </footer>
         </div>
@@ -82,73 +82,58 @@
 </template>
 
 <script lang="ts">
-import {Character} from '@/types/Character';
 
-import { defineComponent } from 'vue';
-import { CharacterInvestment } from '@/types/CharacterInvestment';
+
+import { defineComponent, onMounted, ref } from 'vue';
+
 import axios from 'axios';
 import CampaignCard from '@/components/CampaignCard.vue';
-
-
-
-let Characters: Character[] = [];  
-let y : Character[] = new Array<Character>();
+import { useUserStore } from '@/stores/UserStore';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
-    mounted() {
-        this.GetCharacters();
-    },
-    name: "BankEntrance",
-    data() {
+    setup(){
+        const user = useUserStore();
+        const router = useRouter();
+
+        
+           const Description = ref("");
+            const silver = ref(0);
+            const copper = ref(0);
+            const name =  ref("");
+            const characters = ref([]);
+            const c =ref([]);
+        function GetCampaigns() {
+            axios.get('https://localhost:44319/api/Campaign/Get?playerId='+user.userId,{headers: {Authorization: user.token as string},
+            params: {
+                playerId: user.userId
+            }})
+            .then(response => {
+                characters.value = response.data;
+                console.log(response)});
+            };
+            onMounted(() => {
+                GetCampaigns();
+            });
+
         return {
-            characters: Characters,
-            gold: 0,
-            silver:0,
-            copper:0,
-            name: "",
-            c : y,
-        }
+            user
+            ,Description
+            ,silver
+            ,copper
+            ,name
+            ,characters
+            ,c
+        };
     },
+   
+    name: "BankEntrance",
     components: {
         CampaignCard: CampaignCard,
     },
     methods: {
 
-        GetCharacters() {
-            axios.get('https://localhost:44319/api/character')
-            .then(response => {
-                this.characters = response.data;
-                console.log(response)});
-            },
-
-        CreateCharacter() {
-            let character = {id:1, name: this.name, gold: this.gold, investments: new Array<CharacterInvestment>(),playerId:1 ,campaignID:"1"};
-            let modal = document.getElementById("modal-js-example");
-            this.characters.push(character);
-            modal.classList.remove("is-active");
-            this.name = "";
-            this.gold = 0; 
-            axios.post('https://localhost:44319/api/character/create',character)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        },
-        CallCreateScreen() {
-            let modal = document.getElementById("modal-js-example");
-            modal.classList.add("is-active");
-        },
-        CloseModal() {
-            let modal = document.getElementById("modal-js-example");
-            modal.classList.remove("is-active");
-        },
-        GoToInvestments() {
-            let modal = document.getElementById("modal-js-example");
-            modal.classList.remove("is-active");
-            this.$router.push({ name: 'Investments' });
-        }
+        
     },
 })
 </script>

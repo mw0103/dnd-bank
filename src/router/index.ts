@@ -15,7 +15,10 @@ const routes = [{
         component: BankEntrance,
         beforeEnter: () => {
             const userStore = useUserStore();
-            if(userStore.token == null){
+            const cookies = document.cookie;
+            const cookieArray = cookies.split(";");
+            const token = cookieArray.find((cookie) => cookie.includes("token")).replace("token=","");
+            if(userStore.token == null && token == null){
                 router.push("/");
             }
         }
@@ -26,7 +29,10 @@ const routes = [{
         component: InvesmentView,
         beforeEnter: () => {
             const userStore = useUserStore();
-            if(userStore.token == null){
+            const cookies = document.cookie;
+            const cookieArray = cookies.split(";");
+            const token = cookieArray.find((cookie) => cookie.includes("token")).replace("token=","");
+            if(userStore.token == null && token == null){
                 router.push("/");
             }
         }

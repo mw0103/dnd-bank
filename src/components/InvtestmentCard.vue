@@ -26,13 +26,13 @@
 <script lang="ts">
 import { defineComponent,ref } from 'vue';
 import type { PropType } from 'vue';
-import { Investment } from '@/types/CharacterInvestment';
+import { CharacterInvestment } from '@/types/CharacterInvestment';
 export default defineComponent({
 
     name: "InvestmentCard",
     props: {
         investment:{
-            type: Object as PropType<Investment>,
+            type: Object as PropType<CharacterInvestment>,
             default: () => { 
                 return {
                     id: 0,

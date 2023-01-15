@@ -6,7 +6,8 @@ import {defineStore} from 'pinia';
 
 export const useUserStore = defineStore('user',
 {
-    state: () => ({
+    state: () => {
+        return{
         userId: null as Number,
         token: null as String,
         loggedIn: false as boolean,
@@ -20,5 +21,7 @@ export const useUserStore = defineStore('user',
         investments: [] as Investment[],
         selectedInvestment: null as Investment,
         player: null as Player,
-    })    
+        };
+    },
+    persist:true,    
 })
